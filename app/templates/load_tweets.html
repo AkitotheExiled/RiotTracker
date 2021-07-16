@@ -1,0 +1,7 @@
+{% for tweet in tweets %}
+      {% if loop.last %}
+          {% include '_lasttweet.html' %}
+      {% else %}
+          {% include '_tweet.html' %}
+      {% endif %}
+    {% endfor %}

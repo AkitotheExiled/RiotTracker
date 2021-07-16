@@ -1,0 +1,6 @@
+{% macro devtweets(tweets) %}
+{% set p_tweets = tweets|from_json %}
+{% for tweet in p_tweets[0] %}
+    {% include '_tweet.html' %}
+    {% endfor %}
+{% endmacro %}

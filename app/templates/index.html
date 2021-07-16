@@ -1,0 +1,168 @@
+
+{% extends 'base.html' %}
+{% from "devmacros.html" import devtweets with context %}
+{% block content %}
+<body>
+
+<div class="devtweets">
+{{ devtweets(tweets) }}
+
+</div>
+<footer id="footer">
+    <p>Copyright at Copyright</p>
+</footer>
+</body>
+<script>
+
+    function isElementInViewport(el) {
+        var rect = el.getBoundingClientRect();
+        efp = function(x,y) { return document.elementFromPoint(x,y) };
+        if (
+            rect.right < 0 ||
+            rect.bottom < 0 ||
+            rect.top > (window.innerHeight || document.documentElement.clientHeight) ||
+            rect.left > (window.innerWidth || document.documentElement.clientWidth)
+        ) return false;
+
+        return (el.contains(efp(rect.left,  rect.top))
+      ||  el.contains(efp(rect.right, rect.top))
+      ||  el.contains(efp(rect.right, rect.bottom))
+      ||  el.contains(efp(rect.left,  rect.bottom)));
+    }
+
+    function isVisible(el, callback) {
+        return function () {
+            var visible = isElementInViewport(el);
+            if (visible) {
+                if (typeof callback == 'function') {
+
+                    callback();
+                }
+            }
+        }
+    }
+
+
+    function load_page() {
+        var get_tweets = new XMLHttpRequest();
+        if (!document.querySelector('#footer').getAttribute('pageNum')){
+
+            document.querySelector('#footer').setAttribute('pageNum', 2);
+        }
+        get_tweets.onload = function() {
+            console.log(get_tweets.responseText);
+            processNewTweets(get_tweets.responseText);
+            window.sessionStorage.setItem('ajaxready', "yes");
+
+        };
+        get_tweets.open("GET", 'tweets/' + document.querySelector('#footer').getAttribute('pageNum') , false);
+        get_tweets.send();
+
+
+    }
+
+
+    function createTweetandAppend(tweet) {
+        const link_overlay = document.createElement('div');
+        link_overlay.className = "link_overlay";
+
+        const list_item = document.createElement('div');
+        list_item.className = "list_item";
+
+        const list_content = document.createElement('div');
+        list_content.className = "list_content";
+
+        const list_author = document.createElement('a');
+        list_author.className = "list_author";
+        list_author.innerHTML = tweet['author'];
+
+        const list_text = document.createElement('p');
+        list_text.className = "list_text";
+        list_text.innerHTML = tweet['message'];
+
+        const ul_images = document.createElement('ul');
+
+        if (tweet.images.length > 0) {
+        tweet.images.forEach(function(item,index,array) {
+            const img_cont = document.createElement('div');
+            img_cont.className = "img-cont";
+            const li_img = document.createElement('li');
+            const img = document.createElement('img');
+            img.src = "images/" + item;
+            li_img.append(img);
+            img_cont.append(li_img);
+            ul_images.append(img_cont);
+        })
+        }
+
+        list_content.append(list_author, list_text, ul_images);
+
+        const list_meta = document.createElement('button');
+        list_meta.className = "list_meta";
+        list_meta.name = tweet['link'];
+        list_meta.id = tweet['id'];
+        list_meta.onclick = 'clip_div(list_meta.id)';
+
+        const copy_img = document.createElement('img');
+        copy_img.src = "/share.png";
+
+        list_meta.append(copy_img);
+
+        list_item.append(list_content,list_meta);
+        link_overlay.append(list_item);
+
+        root = document.querySelector('.devtweets');
+        root.append(link_overlay);
+    }
+    function processNewTweets(tweets)  {
+        new_tweets = JSON.parse(tweets);
+        root = document.querySelector('.devtweets');
+        new_tweets[0].forEach(function(item,index,array) {
+            createTweetandAppend(item);
+        })
+        document.querySelector('#footer').setAttribute('pageNum', new_tweets[1]);
+
+
+    }
+    tracked_element = document.querySelector('#footer');
+    var handler = isVisible(tracked_element, function() {
+            if (window.sessionStorage.getItem('ajaxready') === "no") { return; }
+            window.sessionStorage.setItem('ajaxready', "no");
+            load_page()
+    });
+
+if (window.addEventListener) {
+    addEventListener('DOMContentLoaded', handler, false);
+    addEventListener('scroll', handler, false);
+    addEventListener('resize', handler, false);
+} else if (window.attachEvent) {
+
+    attachEvent('onScroll', handler);
+    attachEvent('onResize', handler);
+}
+ function clip_div(id){
+        var button = document.getElementById(id);
+        return copy_text(button.name);
+   }
+    function copy_text(tweet_url) {
+        var getUrl = window.location;
+        var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+        var temp_input = document.createElement('input');
+        temp_input.id="__copyText__";
+        temp_input.value = baseUrl + "tweet/" + tweet_url;
+
+        document.body.appendChild(temp_input);
+
+        temp_input.select();
+        temp_input.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        var txt = temp_input.value;
+
+        temp_input.remove();
+        console.log(tweet_url);
+        console.log(txt);
+    }
+
+</script>
+
+{% endblock %}

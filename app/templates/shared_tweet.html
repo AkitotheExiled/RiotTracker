@@ -1,0 +1,42 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<body>
+
+
+<div class="link_overlay">
+<div class="list_item">
+
+    <div class="list_content">
+        <a href="#" class="list_author">
+            {{tweet.author}}
+        </a>
+        <p class="list_text">
+            {{tweet.message|urlize}}
+        </p>
+        {% if tweet.images|length > 0 %}
+        <ul>
+
+            {% for image_path in tweet.images %}
+
+            <div class="img-cont">
+            <li><img src="images/{{image_path | safe}}"  alt="img"></li>
+            </div>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+    <button  class="list_meta" name="{{tweet.link}}", id="{{tweet.id}}", onclick="clip_div(this.id)">
+            <img src="/share.png" alt="info">
+    </button>
+</div>
+</div>
+
+<button class="primary" href="{{url_for('main.index') }}">Back to home</button>
+</body>
+
+
+{% endblock %}

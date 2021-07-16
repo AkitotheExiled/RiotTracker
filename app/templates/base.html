@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="ASCII">
+    <title>RiotTracker</title>
+</head>
+<script src="https://unpkg.com/htmx.org@1.4.1" integrity="sha384-1P2DfVFAJH2XsYTakfc6eNhTVtyio74YNA1tc6waJ0bO+IfaexSWXc2x62TgBcXe" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/styles.css">
+{% block navbar %}
+{% if g.search_form %}
+<div class="topnav">
+    <form class="search" method="get" action="{{url_for('main.search') }}">
+        <div class="form-group">
+            {{ g.search_form.q(size=20, class='form-control', id='searchbar', placeholder=g.search_form.q.label.text) }}
+        </div>
+    </form>
+    </div>
+{% endif %}
+<div class="dropdown-div">
+    <div id="dropdown" class="dropdown-content">
+                <a href="#">Request a Rioter</a>
+                <a href="#">Contact</a>
+    </div>
+</div>
+<div class="navbar">
+    <div class="navbar_left">
+        <div class="logo">
+
+        </div>
+    </div>
+    <div class="navbar_content">
+        <div class="navbar-navitem-mobile">
+            <a href="#">
+                <img src="/champs.png">
+                <p>Champs</p>
+            </a>
+        </div>
+        <div class="navbar-navitem-mobile">
+            <a href="#">
+                <img src="/skins.png">
+                <p>Skins</p>
+            </a>
+        </div>
+        <div class="navbar-navitem-mobile">
+
+            <a href="#">
+                <img src="/pbe.png">
+                <p>Pbe</p>
+            </a>
+        </div>
+    </div>
+    <div class="navbar-right">
+        <div class="menu-mobile">
+            <button onclick="toggleDropdown()" class="menubutton">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function toggleDropdown() {
+        document.getElementById('dropdown').classList.toggle("show");
+    }
+    window.onclick = function(event) {
+        if (!event.target.matches('.menubutton')) {
+            var dropdowns = document.getElementsByClassName('dropdown-content');
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var opendropdown = dropdowns[i];
+                if (opendropdown.classList.contains('show')) {
+                    opendropdown.classList.remove('show');
+                    }
+                   }
+                  }
+                 }
+</script>
+</html>
+{% endblock %}
+{% block content %}{% endblock %}
