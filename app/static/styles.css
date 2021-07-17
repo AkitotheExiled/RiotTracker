@@ -3,6 +3,9 @@
    License: none (public domain)
 */
 
+/*------------------------------------*\
+  #RESET BROWSER DEFAUTLS
+\*------------------------------------*/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -48,7 +51,9 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
+/*------------------------------------*\
+  #font imports
+\*------------------------------------*/
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 </style>
@@ -56,73 +61,17 @@ html {
     font-size: 14px;
     font-family: 'Lato', sans-serif;
 }
-.link_overlay {
-    background-color: #fcfcfc;
-    border: 1px solid #ececec;
-    width: 100vw;
-    min-height:10vh;
-}
-
-.link_overlay:hover {
-    background-color: #ececec;
-}
-.list_item {
-    display: flex;
-}
-.list_content {
-    text-align: left;
-    margin: 16px 8px 32px 24px;
-    width: 100%;
-}
-.list_image {
-    margin: 16px;
-}
-.list_author {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-decoration: none;
-    color: #3B3B3B;
-    margin:0 0 0 8px;
-}
-.list_text {
-    font-size: 2.0rem;
-    margin: 16px 8px 16px 8px;
-    color: black;
-    line-height: 1.4;
-}
-.responsive_media {
-    margin: 8px;
-}
-
-.primary {
-    padding: 30px 60px;
-    font-size: 32px;
-    background-color: #a3a3a3;
-    color: #fcfcfc;
-    border-radius: 8px;
-    border: none;
-}
-
-.list_meta {
-    border: none;
-    background-color: transparent;
-    padding:24px;
-
-}
-
-.list_meta:hover {
-    background-color: #d4d4d4;
-}
+/*------------------------------------*\
+  #Animations
+\*------------------------------------*/
 @keyframes moveUp {
     from {top: 0;}
     to {top: -16px;}
 }
-.list_meta img:active {
-    position: relative;
-    animation-name: moveUp;
-    animation-duration: .4s;
 
-}
+/*------------------------------------*\
+  #Navbar
+\*------------------------------------*/
 .navbar {
     bottom: 0;
     position: fixed;
@@ -202,8 +151,9 @@ html {
     text-decoration: none;
     display: block;
 }
-
-
+/*------------------------------------*\
+  #Searchbar/topnav
+\*------------------------------------*/
 #searchbar {
         background-color: #ececec;
     background-image: url("/search.png");
@@ -227,19 +177,6 @@ html {
     width: 100%;
     margin-top:-11em;
 }
-
-.devtweets {
-    margin-top:11em;
-
-}
-footer {
-    width:100%;
-    height: 11em;
-    left:0;
-    bottom:0;
-    text-align: center;
-    margin-bottom: 11em;
-}
 .form-control {
     width: 40%;
     -webkit-transition: width 0.15s ease-in-out;
@@ -252,6 +189,79 @@ footer {
 }
 #searchbar:focus:hover {
     background-color: #ffffff;
+}
+
+/*------------------------------------*\
+  #Tweet container
+\*------------------------------------*/
+
+.link_overlay {
+    background-color: #fcfcfc;
+    border: 1px solid #ececec;
+    width: 100vw;
+    min-height:10vh;
+}
+
+.link_overlay:hover {
+    background-color: #ececec;
+}
+.list_item {
+    display: flex;
+}
+.list_content {
+    text-align: left;
+    margin: 16px 8px 32px 24px;
+    width: 100%;
+}
+.list_image {
+    margin: 16px;
+}
+.list_author {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #3B3B3B;
+    margin:0 0 0 8px;
+}
+.list_text {
+    font-size: 2.0rem;
+    margin: 16px 8px 16px 8px;
+    color: black;
+    line-height: 1.4;
+}
+.responsive_media {
+    margin: 8px;
+}
+
+.primary {
+    padding: 30px 60px;
+    font-size: 32px;
+    background-color: #a3a3a3;
+    color: #fcfcfc;
+    border-radius: 8px;
+    border: none;
+}
+
+.list_meta {
+    border: none;
+    background-color: transparent;
+    padding:24px;
+
+}
+
+.list_meta:hover {
+    background-color: #d4d4d4;
+}
+
+.list_meta img:active {
+    position: relative;
+    animation-name: moveUp;
+    animation-duration: .4s;
+
+}
+.devtweets {
+    margin-top:11em;
+
 }
 .img-cont {
     display: inline-block;
@@ -268,4 +278,15 @@ footer {
 
 .list_content li img {
     width:100%;
+}
+/*------------------------------------*\
+  #footer
+\*------------------------------------*/
+footer {
+    width:100%;
+    height: 11em;
+    left:0;
+    bottom:0;
+    text-align: center;
+    margin-bottom: 11em;
 }
