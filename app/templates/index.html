@@ -50,7 +50,6 @@
             document.querySelector('#footer').setAttribute('pageNum', 2);
         }
         get_tweets.onload = function() {
-            console.log(get_tweets.responseText);
             processNewTweets(get_tweets.responseText);
             window.sessionStorage.setItem('ajaxready', "yes");
 
@@ -63,22 +62,22 @@
 
 
     function createTweetandAppend(tweet) {
-        const link_overlay = document.createElement('div');
-        link_overlay.className = "link_overlay";
+        const tweet_container = document.createElement('div');
+        tweet_container.className = "tweet-container";
 
-        const list_item = document.createElement('div');
-        list_item.className = "list_item";
+        const inner_contents = document.createElement('div');
+        inner_contents.className = "inner-contents";
 
-        const list_content = document.createElement('div');
-        list_content.className = "list_content";
+        const tweet_info = document.createElement('div');
+        tweet_info.className = "tweet-info";
 
-        const list_author = document.createElement('a');
-        list_author.className = "list_author";
-        list_author.innerHTML = tweet['author'];
+        const author = document.createElement('a');
+        author.className = "author";
+        author.innerHTML = tweet['author'];
 
-        const list_text = document.createElement('p');
-        list_text.className = "list_text";
-        list_text.innerHTML = tweet['message'];
+        const desc_text = document.createElement('p');
+        desc_text.className = "desc-text";
+        desc_text.innerHTML = tweet['message'];
 
         const ul_images = document.createElement('ul');
 
@@ -95,24 +94,24 @@
         })
         }
 
-        list_content.append(list_author, list_text, ul_images);
+        tweet_info.append(author, desc_text, ul_images);
 
-        const list_meta = document.createElement('button');
-        list_meta.className = "list_meta";
-        list_meta.name = tweet['link'];
-        list_meta.id = tweet['id'];
-        list_meta.onclick = 'clip_div(list_meta.id)';
+        const btn_share = document.createElement('button');
+        btn_share.className = "btn-share";
+        btn_share.name = tweet['link'];
+        btn_share.id = tweet['id'];
+        btn_share.onclick = 'clip_div(btn_share.id)';
 
         const copy_img = document.createElement('img');
         copy_img.src = "/share.png";
 
-        list_meta.append(copy_img);
+        btn_share.append(copy_img);
 
-        list_item.append(list_content,list_meta);
-        link_overlay.append(list_item);
+        inner_contents.append(tweet_info,btn_share);
+        tweet_container.append(inner_contents);
 
         root = document.querySelector('.devtweets');
-        root.append(link_overlay);
+        root.append(tweet_container);
     }
     function processNewTweets(tweets)  {
         new_tweets = JSON.parse(tweets);
@@ -159,8 +158,7 @@ if (window.addEventListener) {
         var txt = temp_input.value;
 
         temp_input.remove();
-        console.log(tweet_url);
-        console.log(txt);
+
     }
 
 </script>

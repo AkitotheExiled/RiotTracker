@@ -165,7 +165,6 @@ html {
     font-size: 2.0EM;
     height: 2em;
     margin: 1.5em;
-    margin-left: 5em;
     margin-right: 16px;
     padding: 16px;
     padding-left: 64px;
@@ -178,13 +177,13 @@ html {
     margin-top:-11em;
 }
 .form-control {
-    width: 40%;
+    width: 80%;
     -webkit-transition: width 0.15s ease-in-out;
     transition: width 0.15s ease-in-out;
 }
 
 .form-control:focus {
-    width: 45%;
+    width: 82%;
 
 }
 #searchbar:focus:hover {
@@ -195,20 +194,20 @@ html {
   #Tweet container
 \*------------------------------------*/
 
-.link_overlay {
+.tweet-container {
     background-color: #fcfcfc;
     border: 1px solid #ececec;
     width: 100vw;
     min-height:10vh;
 }
 
-.link_overlay:hover {
+.tweet-container:hover {
     background-color: #ececec;
 }
-.list_item {
+.inner-contents {
     display: flex;
 }
-.list_content {
+.tweet-info {
     text-align: left;
     margin: 16px 8px 32px 24px;
     width: 100%;
@@ -216,14 +215,14 @@ html {
 .list_image {
     margin: 16px;
 }
-.list_author {
+.author {
     font-size: 2.5rem;
     font-weight: bold;
     text-decoration: none;
     color: #3B3B3B;
     margin:0 0 0 8px;
 }
-.list_text {
+.desc-text {
     font-size: 2.0rem;
     margin: 16px 8px 16px 8px;
     color: black;
@@ -242,18 +241,18 @@ html {
     border: none;
 }
 
-.list_meta {
+.btn-share {
     border: none;
     background-color: transparent;
     padding:24px;
 
 }
 
-.list_meta:hover {
+.btn-share:hover {
     background-color: #d4d4d4;
 }
 
-.list_meta img:active {
+.btn-share img:active {
     position: relative;
     animation-name: moveUp;
     animation-duration: .4s;
@@ -272,11 +271,11 @@ html {
 }
 .show {display:block;}
 
-.list_content li {
+.tweet-info li {
     display: inline;
 }
 
-.list_content li img {
+.tweet-info li img {
     width:100%;
 }
 /*------------------------------------*\

@@ -1,12 +1,12 @@
 
-<div class="link_overlay"  id="lasttweet">
-<div class="list_item">
+<div class="tweet-container"  id="lasttweet">
+<div class="inner-contents">
 
-    <div class="list_content">
-        <a href="#" class="list_author">
+    <div class="tweet-info">
+        <a href="#" class="author">
             {{tweet.author}}
         </a>
-        <p class="list_text">
+        <p class="desc-text">
             {{tweet.message|urlize}}
         </p>
         {% if tweet.images|length > 0 %}
@@ -21,7 +21,7 @@
         </ul>
         {% endif %}
     </div>
-    <button  class="list_meta" name="{{tweet.link}}", id="{{tweet.id}}", onclick="clip_div(this.id)">
+    <button  class="btn-share" name="{{tweet.link}}", id="{{tweet.id}}", onclick="clip_div(this.id)">
             <img src="/copy.png" alt="info">
     </button>
 </div>
