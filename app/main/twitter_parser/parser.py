@@ -104,11 +104,11 @@ def sort_tweets(tweets):
 def league_related(body):
     body = body.lower()
     #body_set = set(body.split(" "))
-    champions = read_file('champs.txt')
+    keywords = read_file('keywords.txt')
     #if body_set.intersection(champions):
         #return True
     #return False
-    for keyword in champions:
+    for keyword in keywords:
         if keyword in body:
             return True
     return False

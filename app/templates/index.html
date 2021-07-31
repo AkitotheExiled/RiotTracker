@@ -8,12 +8,28 @@
 {{ devtweets(tweets) }}
 
 </div>
+<button class="primary back-to-top" id="top" onclick="topFunction()">Top</button>
 <footer id="footer">
     <p>Copyright at Copyright</p>
 </footer>
 </body>
 <script>
 
+
+
+    function scrollFunction() {
+        top_button = document.getElementById("top");
+        if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
+            top_button.style.display = "block";
+         } else {
+            top_button.style.display = "none";
+            }
+    }
+
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
     function isElementInViewport(el) {
         var rect = el.getBoundingClientRect();
         efp = function(x,y) { return document.elementFromPoint(x,y) };
@@ -53,7 +69,8 @@
             processNewTweets(get_tweets.responseText);
             window.sessionStorage.setItem('ajaxready', "yes");
 
-        };
+        }
+
         get_tweets.open("GET", 'tweets/' + document.querySelector('#footer').getAttribute('pageNum') , false);
         get_tweets.send();
 
@@ -71,9 +88,23 @@
         const tweet_info = document.createElement('div');
         tweet_info.className = "tweet-info";
 
+        const author_cont = document.createElement('div');
+        author_cont.className = "author-cont";
+
+        const icon_img = document.createElement('img');
+        icon_img.src = "twitter-icon.svg"
+
         const author = document.createElement('a');
         author.className = "author";
         author.innerHTML = tweet['author'];
+        author.href = "https://twitter.com/" +  tweet['author'];
+        author.target = "_blank";
+
+        author_cont.append(icon_img, author);
+
+        const date = document.createElement('p');
+        date.className = "date";
+        date.innerHTML = tweet['created_at'];
 
         const desc_text = document.createElement('p');
         desc_text.className = "desc-text";
@@ -94,7 +125,7 @@
         })
         }
 
-        tweet_info.append(author, desc_text, ul_images);
+        tweet_info.append(author_cont, date, desc_text, ul_images);
 
         const btn_share = document.createElement('button');
         btn_share.className = "btn-share";
@@ -127,12 +158,13 @@
     var handler = isVisible(tracked_element, function() {
             if (window.sessionStorage.getItem('ajaxready') === "no") { return; }
             window.sessionStorage.setItem('ajaxready', "no");
-            load_page()
+            load_page();
     });
 
 if (window.addEventListener) {
     addEventListener('DOMContentLoaded', handler, false);
     addEventListener('scroll', handler, false);
+    addEventListener('scroll', scrollFunction);
     addEventListener('resize', handler, false);
 } else if (window.attachEvent) {
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
-    <meta charset="ASCII">
+    <meta charset="ASCII" name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <title>RiotTracker</title>
 </head>
 <script src="https://unpkg.com/htmx.org@1.4.1" integrity="sha384-1P2DfVFAJH2XsYTakfc6eNhTVtyio74YNA1tc6waJ0bO+IfaexSWXc2x62TgBcXe" crossorigin="anonymous"></script>
@@ -9,57 +9,26 @@
 {% block navbar %}
 {% if g.search_form %}
 <div class="topnav">
+    <a href="{{url_for('main.index') }}" id="home-icon" role="button"><img class="filter-darkgrey"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -1.5 24 24"  preserveAspectRatio="xMinYMin" class="icon__icon"><path d="M13 20.565v-5a3 3 0 0 0-6 0v5H2a2 2 0 0 1-2-2V7.697a2 2 0 0 1 .971-1.715l8-4.8a2 2 0 0 1 2.058 0l8 4.8A2 2 0 0 1 20 7.697v10.868a2 2 0 0 1-2 2h-5z"></path></svg></img></a>
     <form class="search" method="get" action="{{url_for('main.search') }}">
         <div class="form-group">
             {{ g.search_form.q(size=20, class='form-control', id='searchbar', placeholder=g.search_form.q.label.text) }}
         </div>
     </form>
+    <a href="https://forms.gle/tbRziaitbGMZMtw66" id="contact-icon" role="button" target="_blank"><img  class="filter-darkgrey"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-3 -2 24 24"  preserveAspectRatio="xMinYMin" class="icon__icon"><path d="M5.978 14.969a.38.38 0 0 1 .002-.033l-.002.033zm.001-.167a1.36 1.36 0 0 0 .001.003v-.003zm.04 1.9c2.678-2.462 3.007-2.656 3.793-2.734C13.364 13.615 16 11.01 16 8.004c0-3.26-3.085-6.003-7-6.003S2 4.745 2 8.004c0 1.893 1.175 3.767 3.054 4.957.783.495.958 1.117.941 1.778a2.548 2.548 0 0 1-.009.15c.022.33.032.92.033 1.814zm3.99-.743c-.185.018-1.625 1.276-4.32 3.774a1 1 0 0 1-1.68-.742c.02-2.362.011-3.709-.024-4.04-.018-.173.032-.28 0-.3C1.708 13.212 0 10.775 0 8.005 0 3.584 4.03 0 9 0s9 3.584 9 8.004c0 4.117-3.495 7.509-7.99 7.955z"></path></svg></img></a>
     </div>
+<div class="desktop-nav">
+    <a href="{{url_for('main.index') }}" class="home-icon" role="button"><img src="logoriottracker.svg"></a>
+    <form class="search" method="get" action="{{url_for('main.search') }}">
+        <div class="form-group">
+            {{ g.search_form.q(size=20, class='form-control', id='searchbar', placeholder=g.search_form.q.label.text) }}
+        </div>
+    </form>
+    <a href="https://forms.gle/tbRziaitbGMZMtw66" class="contact-icon" role="button" target="_blank">Contact</a>
+
+</div>
 {% endif %}
-<div class="dropdown-div">
-    <div id="dropdown" class="dropdown-content">
-                <a href="#">Request a Rioter</a>
-                <a href="#">Contact</a>
-    </div>
-</div>
-<div class="navbar">
-    <div class="navbar_left">
-        <div class="logo">
 
-        </div>
-    </div>
-    <div class="navbar_content">
-        <div class="navbar-navitem-mobile">
-            <a href="#">
-                <img src="/champs.png">
-                <p>Champs</p>
-            </a>
-        </div>
-        <div class="navbar-navitem-mobile">
-            <a href="#">
-                <img src="/skins.png">
-                <p>Skins</p>
-            </a>
-        </div>
-        <div class="navbar-navitem-mobile">
-
-            <a href="#">
-                <img src="/pbe.png">
-                <p>Pbe</p>
-            </a>
-        </div>
-    </div>
-    <div class="navbar-right">
-        <div class="menu-mobile">
-            <button onclick="toggleDropdown()" class="menubutton">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </button>
-
-        </div>
-    </div>
-</div>
 
 <script>
 

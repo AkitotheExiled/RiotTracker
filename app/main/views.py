@@ -30,15 +30,20 @@ def index():
 def load_tweets_next_page(page=1):
     sorted = []
     tweets_per_page = current_app.config['POSTS_PER_PAGE']
-    query_offset = page * int(tweets_per_page)
-    print(query_offset)
-    tweets = Tweet.query.limit(tweets_per_page).offset(query_offset).all()
+    if page == 1:
+        query_offset = 0
+    else:
+        query_offset = page * int(tweets_per_page)
+
+    tweets = Tweet.query.order_by(Tweet.created_at.desc()).limit(tweets_per_page).offset(query_offset).all()
+    print(f"tweet count: {len(tweets)}, page: {page}, query_offset: {query_offset}")
     for tweet in tweets:
         images = []
         image = ImageTweet.query.filter_by(tweet_id=tweet.id).first()
         if image:
             images.append(image.image)
         sorted.append({'author': tweet.author,
+                       'created_at': tweet.created_at,
                        'message': tweet.message,
                        'images': images,
                        'link': tweet.perm_link(),
@@ -54,15 +59,9 @@ def process():
 
 @main.route('/search')
 def search():
-    #if not g.search_form.validate():
-        #return redirect(url_for('main.index'))
     page = request.args.get('page', 1, type=int)
     tweets, total = Tweet.search(g.search_form.q.data, page, current_app.config['POSTS_PER_PAGE'])
-    #print(tweets)
-    #next_url = url_for('main.search', q=g.search.form.q.data, page=page + 1) \
-        #if total > page * current_app.config['POSTS_PER_PAGE'] else None
-    #prev_url = url_for('main.search', q=g.search.form.q.data, page=page - 1) \
-        #if page > 1 else None
+
     return render_template('search.html', title=('Search'), tweets=tweets)
 
 @main.route('/tweet/<id>')

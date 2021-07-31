@@ -6,6 +6,7 @@ from celery import Celery
 from elasticsearch import Elasticsearch
 
 
+
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -30,6 +31,13 @@ def create_celery_app(app=None):
 
     celery = Celery(app.import_name)
     celery.conf.update(app.config.get('CELERY_CONFIG', {}))
+    celery.conf.beat_schedule = {
+        'scrape-twit-every-5-minutes': {
+            'task': 'app.main.tasks.run_async_parser',
+            'schedule': 300.0
+        }
+    }
+    celery.conf.timezone = 'UTC'
     TaskBase = celery.Task
 
     class ContextTask(TaskBase):

@@ -3,9 +3,13 @@
 <div class="inner-contents">
 
     <div class="tweet-info">
-        <a href="#" class="author">
-            {{tweet.author}}
-        </a>
+        <div class="author-cont">
+            <img src="twitter-icon.svg">
+            <a href="https://twitter.com/{{tweet.author}}" target="_blank" class="author">
+                {{tweet.author}}
+            </a>
+            </div>
+        <p class="date">{{tweet.created_at}}</p>
         <p class="desc-text">
             {{tweet.message|urlize}}
         </p>
