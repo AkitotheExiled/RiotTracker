@@ -2,7 +2,7 @@ from app import db
 from app.main.twitter.auth import get_authed_api
 from app.main.database import User, Tweet, ImageTweet
 from datetime import datetime
-from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import NoResultFound
 from definitions import ROOT_DIR
 
 import requests

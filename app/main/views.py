@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template,request, g, redirect, url_for, current_app, session, jsonify, make_response
+from flask import render_template, request, g, url_for, current_app, session, jsonify, make_response, redirect
 from app.main.tasks import run_async_parser, print_msg
 from app.main.forms import SearchForm
 from . import main
@@ -36,7 +36,6 @@ def load_tweets_next_page(page=1):
         query_offset = page * int(tweets_per_page)
 
     tweets = Tweet.query.order_by(Tweet.created_at.desc()).limit(tweets_per_page).offset(query_offset).all()
-    print(f"tweet count: {len(tweets)}, page: {page}, query_offset: {query_offset}")
     for tweet in tweets:
         images = []
         image = ImageTweet.query.filter_by(tweet_id=tweet.id).first()
